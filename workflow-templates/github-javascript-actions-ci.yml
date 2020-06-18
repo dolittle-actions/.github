@@ -24,7 +24,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     
     steps:
-    - use: actions/checkout@v2
+    - uses: actions/checkout@v2
     - name: Setup node v12
       uses: actions/setup-node@v1
       with:
