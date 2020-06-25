@@ -1,9 +1,8 @@
-name: .NET Library CI/CD
+name: .NET Docker Image CI/CD
 
 env:
   PRERELEASE_BRANCHES: '' # Comma separated list of prerelease branch names. 'alpha,rc, ...'
-  CASCADES: '' # Comma separated list of cascading repos. 'dolittle/DotNet.SDK,...'
-  NUGET_OUTPUT: Artifacts/NuGet
+  DOCKER_HUB_REPO: '' # The docker hub repo to push to
 
 on:
   push:
@@ -57,14 +56,11 @@ jobs:
         with:
           cascading-release: ${{ needs.ci.outputs.cascading-release }}
           version: ${{ steps.increment-version.outputs.next-version }}
-      - name: Create packages
-        run: dotnet pack --configuration Release -o ${{ env.NUGET_OUTPUT }} /p:PackageVersion=${{ steps.increment-version.outputs.version }} -p:IncludeSymbols=true -p:SymbolPackageFormat=snupkg
-      - name: Push NuGet packages
-        run: dotnet nuget push ${{ env.NUGET_OUTPUT }}/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
-      - name: Cascade
-        uses: dolittle/cascade-action@v1
-        if: ${{ env.CASCADES != '' }}
+      - name: Push to Docker Hub
+        uses: docker/build-push-action@v1
+        if: ${{ env.DOCKER_HUB_REPO != '' }}
         with:
-          token: ${{ secrets.BUILD_PAT }}
-          version: ${{ steps.increment-version.outputs-next-version }}
-          cascades: ${{ env.CASCADES }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ env.DOCKER_HUB_REPO }}
+          tags: ${{ steps.increment-version.outputs.next-version }}

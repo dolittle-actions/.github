@@ -1,0 +1,13 @@
+{
+  "name": ".Net Docker Image Workflow",
+  "description": "CI Workflow template for Dolittle's .Net docker image repositories",
+  "iconName": "dolittle-icon",
+  "categories": [
+    ".Net",
+    ".Net Core",
+    "Library"
+  ],
+  "filePatterns": [
+    "*.sln$"
+  ]
+}
