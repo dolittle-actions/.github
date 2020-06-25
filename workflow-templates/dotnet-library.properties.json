@@ -1,0 +1,13 @@
+{
+  "name": ".Net Library Workflow",
+  "description": "CI Workflow template for Dolittle's .Net library repositories",
+  "iconName": "dolittle-icon",
+  "categories": [
+    ".Net",
+    ".Net Core",
+    "Library"
+  ],
+  "filePatterns": [
+    "*.sln$"
+  ]
+}
