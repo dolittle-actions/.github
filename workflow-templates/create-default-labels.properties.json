@@ -1,0 +1,11 @@
+{
+  "name": "Create Default Labels Workflow",
+  "description": "Workflow template that makes sure that the labels for a repository is always consistent with what is configured in the .github/labels.json file. labels.json is a list of objects where the object consists of a 'name', 'color' and 'description'",
+  "iconName": "dolittle-icon",
+  "categories": [
+    "Labels",
+    "Repository management"
+  ],
+  "filePatterns": [
+  ]
+}
